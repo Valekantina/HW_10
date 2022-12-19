@@ -106,6 +106,8 @@ def input_error(func):
             return f"Sorry, you have not provided enough arguments"
         except KeyError:
             return f"This name does not exist in contacts"
+        except TypeError as error: #added TypeError exception
+            return f"Sorry, you have provided wrong type of arguments. Error: {error}" 
     return wrapper
 
 # creating function to add new contacts
@@ -155,9 +157,10 @@ def phone_number(*args) -> str:
 def delete(name, phone) -> str:
     if name in contacts:
         contacts[name].delete(phone)
+        contacts.pop(name) # added pop(name) line to ensure the name is removed from the list when the phone number is deleted
     else:
         return f"There is no contact under name '{name}'"
-    return f"The phone number has been successfully removed"
+    return f"The user entry has been successfully removed"
 
 
 # making sure the code will only run when .py file is executed as a script
